@@ -6,7 +6,7 @@ export default function Todo ({ text, priority, dueDate }) {
         <tr>
             <td>{text}</td>
             <td>{priority}</td>
-            <td>{dueDate.format('DD-MM-YYYY')}</td>
+            <td>{dueDate.toLocaleDateString()}</td>
         </tr>
     );
 

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -12,19 +11,31 @@ import './Login.css';
 
 export default function Login() {
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const logIn = () => {
+        if(email === localStorage.getItem("userEmail") && password === localStorage.getItem("userPassword")){
+            localStorage.setItem("loggingStaus", "logged");
+            window.location.href = "/todo";
+        }else{
+            alert("Oops, try again")
+        }
+    }
+
     return (
         <React.Fragment>
-            <CssBaseline />
             <main className="layout">
                 <Paper className="paper">
                     <Avatar className="avatar">
                         <LockIcon />
                     </Avatar>
-                    <Typography variant="h2">Sign in</Typography>
+                    <Typography variant="h4">Sign in</Typography>
                     <form className="form">
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="email">Email Address</InputLabel>
-                            <Input id="email" name="email" autoComplete="email" autoFocus />
+                            <Input id="email" name="email" autoComplete="email" autoFocus 
+                                onChange={(e) => setEmail(e.target.value)}/>
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="password">Password</InputLabel>
@@ -33,6 +44,7 @@ export default function Login() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </FormControl>
                         <Button
@@ -40,7 +52,8 @@ export default function Login() {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className="submit"
+                            style={{"marginTop": "2rem"}}
+                            onClick={logIn}
                         >
                             Sign in
                             </Button>

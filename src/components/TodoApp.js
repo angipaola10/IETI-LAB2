@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import TodoList from "./TodoList";
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
+import TextField from '@material-ui/core/TextField';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import 'date-fns';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 export default function TodoApp() {
 
@@ -12,9 +17,7 @@ export default function TodoApp() {
     const [dueDate, setDueDate] = useState(moment());
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
-
         if (!text.length || !priority.length || !dueDate)
             return;
 
@@ -30,40 +33,45 @@ export default function TodoApp() {
     return (
         <React.Fragment>
             <br />
-            <br />
-            <form onSubmit={handleSubmit} className="todo-form">
-                <h3>New TODO</h3>
-                <label htmlFor="text" className="right-margin">
-                    Text:
-                </label>
-                <input
+            <form onSubmit={handleSubmit}  className="todo-form" autoComplete="off">
+            <Typography variant="h4" style={{marginBottom: "2rem"}}>New TODO</Typography>
+                <TextField
                     id="text"
                     value={text}
-                    onChange={(e) => setText(e.target.value)}>
-                </input>
+                    label="Text"
+                    onChange={(e) => setText(e.target.value)}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    fullWidth>
+                </TextField>
                 <br />
                 <br />
-                <label htmlFor="priority" className="right-margin">
-                    Priority:
-                    </label>
-                <input
+                <TextField
                     id="priority"
                     type="number"
+                    label="Priority"
                     value={priority}
-                    onChange={(e) => setPriority(e.target.value)}>
-                </input>
+                    onChange={(e) => setPriority(e.target.value)}
+                    fullWidth>
+                </TextField>
                 <br />
                 <br />
-                <DatePicker
-                    id="due-date"
-                    selected={dueDate}
-                    placeholderText="Due date"
-                    onChange={(date) => setDueDate(date)}>
-                </DatePicker>
+                <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                    <KeyboardDatePicker
+                        id="due-date"
+                        label="Due Date"
+                        selected={dueDate}
+                        placeholderText="Due date"
+                        format="dd/MM/yyyy"
+                        onChange={(date) => setDueDate(date)}
+                        fullWidth>
+                    </KeyboardDatePicker>
+                </MuiPickersUtilsProvider>
                 <br />
-                <button>
+                <Button variant="contained" color="primary" style={{"marginTop": "2rem"}} fullWidth type="submit" >
                     Add #{todoList.length + 1}
-                </button>
+                </Button>
             </form>
             <br />
             <br />

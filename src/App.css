@@ -1,5 +1,7 @@
 .App {
     text-align: center;
+    background-color: white;
+    font-size: 15px;
 }
 
 .App-logo {
@@ -25,8 +27,8 @@
 .todo-form {
     border: 1px solid lightsteelblue;
     margin: auto;
-    width: 60%;
-    padding: 20px;
+    width: 30%;
+    padding: 40px;
     text-align: center;
 }
 
@@ -55,11 +57,26 @@ table {
 }
 
 td, th {
-    border: 1px solid #dddddd;
+    border: 1px solid white;
     text-align: left;
     padding: 8px;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: white;
+}
+
+#pages {
+    text-align: start;
+    background-color: white;
+    padding: 0;
+}
+
+#pages li {
+    margin-left: 2rem;
+    display: inline;
+}
+
+Link {
+    text-decoration: none;
 }
